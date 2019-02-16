@@ -8,9 +8,11 @@
       </header>
       <div class="card-content">
         <div class="content">
-          <div class="field">
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <div id="google-signin-button" class="field">
+           
+            <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
           </div>
+           <a href="#" v-on:click="signOut">Sign out</a>
         </div>
       </div>
     </div>
@@ -44,3 +46,45 @@
   margin: auto;
 }
 </style>
+<script>
+export default {
+  data: () => ({
+
+  }),
+  mounted() {
+    let recaptchaScript = document.createElement('script')
+    recaptchaScript.setAttribute('src', 'https://apis.google.com/js/platform.js')
+    recaptchaScript.setAttribute('async', true);
+    recaptchaScript.setAttribute('defer', true);
+    document.head.appendChild(recaptchaScript);
+
+    gapi.signin2.render('google-signin-button', {
+      onsuccess: this.onSignIn
+    })
+
+    const go = goCloud().new();
+
+    go().setValidator(go().factory.makeValidator( (pattern, url) => {
+      return new URL(url).pathname.match(`^${pattern}$`)
+    }));
+    go().router("/users", (res, extras)=>{
+      console.log(res);
+    });
+  },
+  methods: {
+    onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    },
+    signOut() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+    }
+  }
+}
+</script>
