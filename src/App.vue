@@ -62,22 +62,36 @@ export default {
       onsuccess: this.onSignIn
     })
 
-    const go = goCloud().new();
+    // const go = goCloud().new();
 
-    go().setValidator(go().factory.makeValidator( (pattern, url) => {
-      return new URL(url).pathname.match(`^${pattern}$`)
-    }));
-    go().router("/users", (res, extras)=>{
-      console.log(res);
-    });
+    // go().setValidator(go().factory.makeValidator( (pattern, url) => {
+    //   return new URL(url).pathname.match(`^${pattern}$`)
+    // }));
+    // go().router("/users", (res, extras)=>{
+    //   console.log(res);
+    // });
   },
   methods: {
     onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      var authResponse = googleUser.getAuthResponse();
+      var token = authResponse.id_token;
+      var id = profile.getId();
+      console.log('ID: ' + id); // Do not send to your backend! Use an ID token instead.
       console.log('Name: ' + profile.getName());
       console.log('Image URL: ' + profile.getImageUrl());
       console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      console.log('Token: ' + token); // This is null if the 'email' scope is not present.
+      console.log('response' + authResponse);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://127.0.0.1:3000/login');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function() {
+        console.log('Signed in as: ' + xhr.responseText);
+      };
+      xhr.send(`token=${token}&uuid=${id}`);
+
     },
     signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
