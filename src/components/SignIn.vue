@@ -1,19 +1,21 @@
 <template>
-  <section class="hero is-success is-fullheight">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <div class="column is-4 is-offset-4">
-          <h3 class="title has-text-grey">Login</h3>
-          <p class="subtitle has-text-grey">Please login to proceed.</p>
-          <div class="box columns">
-            <div id="google-signin-button column" class="field"></div>
-            <a class="column is-narrow" href="#" v-on:click="signOut">Sign out</a>
+  <div class="container">
+    <section class="hero is-success is-fullheight">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="column is-4 is-offset-4">
+            <h3 class="title has-text-grey">Login</h3>
+            <p class="subtitle has-text-grey">Please login to proceed.</p>
+            <div class="box columns">
+              <div id="google-signin-button column" class="field"></div>
+              <a class="column is-narrow" href="#" v-on:click="signOut">Sign out</a>
+            </div>
+            <p class="has-text-grey"></p>
           </div>
-          <p class="has-text-grey"></p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -29,9 +31,9 @@ export default {
     recaptchaScript.setAttribute('defer', true);
     document.head.appendChild(recaptchaScript);
 
-    gapi.signin2.render('google-signin-button', {
+    /*gapi.signin2.render('google-signin-button', {
       onsuccess: this.onSignIn,
-    });
+    });*/
   },
   methods: {
     onSignIn(googleUser) {
@@ -55,10 +57,10 @@ export default {
       xhr.send(`token=${token}&uuid=${id}`);
     },
     signOut() {
-      const auth2 = gapi.auth2.getAuthInstance();
+      /*const auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(() => {
         console.log('User signed out.');
-      });
+      });*/
     },
   },
 };
