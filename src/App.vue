@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-     <div class="container">
-        <sign-in></sign-in>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -19,11 +17,13 @@
 </style>
 
 <script>
-import SingIn from './components/SignIn.vue';
+import AppFooter from './layout/AppFooter.vue';
+import AppNavbar from './layout/AppNavbar.vue';
 
 export default {
   components: {
-    'sign-in': SingIn,
+    'app-footer': AppFooter,
+    'app-navbar' : AppNavbar,
   },
 };
 </script>

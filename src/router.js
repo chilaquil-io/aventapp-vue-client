@@ -1,12 +1,20 @@
-import Router from 'vue-router';
-import SignIn from './components/SignIn.vue';
+import VueRouter from 'vue-router';
+import Vue from 'vue';
+import Login from './views/Login.vue';
 
-export default new Router({
+Vue.use(VueRouter);
+
+export default new VueRouter({
   routes: [
     {
       path: '/',
       name: 'home',
-      component: SignIn,
+      component: Login,
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import(/* webpackChunkName: "dashboard" */ './views/ItineraryDashboard'),
     },
     {
       path: '/about',
@@ -15,6 +23,11 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
     },
   ],
 });
