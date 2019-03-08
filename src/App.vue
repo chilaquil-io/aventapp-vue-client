@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+  <component id="app" :is="layout">
+    <router-view :layout.sync="layout"></router-view>
+  </component>
 </template>
 
 <style>
@@ -17,13 +17,12 @@
 </style>
 
 <script>
-import AppFooter from './layout/AppFooter.vue';
-import AppNavbar from './layout/AppNavbar.vue';
-
 export default {
-  components: {
-    'app-footer': AppFooter,
-    'app-navbar' : AppNavbar,
+  name: 'App',
+  data() {
+    return {
+      layout: 'div',
+    };
   },
 };
 </script>
