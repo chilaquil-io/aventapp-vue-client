@@ -1,23 +1,21 @@
 <template>
-  <section>
-    <app-navbar></app-navbar>
+  <div>
     <sign-in></sign-in>
-    <app-footer></app-footer>
-  </section>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import AppNavbar from '@/layout/AppNavbar.vue';
-import AppFooter from '@/layout/AppFooter.vue';
 import SignIn from '@/components/SignIn.vue';
+import Layout from '@/layout/Layout.vue';
 
 export default {
   name: 'Login',
+  created() {
+    this.$emit('update:layout', Layout);
+  },
   components: {
-    'app-navbar': AppNavbar,
-    'app-footer': AppFooter,
-    'sign-in': SignIn,
+    'sign-in': SignIn
   }
 };
 </script>
