@@ -1,15 +1,14 @@
 import VueRouter from 'vue-router';
 import Vue from 'vue';
-import Login from './views/Login.vue';
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Login,
+      component: () => import(/* webpackChunkName: "dashboard" */ './views/ItineraryDashboard'),
     },
     {
       path: '/dashboard',
@@ -30,4 +29,20 @@ export default new VueRouter({
       component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
     },
   ],
+});
+
+export default router;
+
+// eslint-disable-next-line
+router.beforeEach((to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/login', '/register'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('user');
+
+  if (authRequired && !loggedIn) {
+    return next('/login');
+  }
+
+  next();
 });

@@ -14,8 +14,8 @@ import AppFooter from '@/layout/AppFooter.vue';
 export default {
   name: 'Layout',
   components: {
-    AppFooter
-  }
+    AppFooter,
+  },
 };
 </script>
 
