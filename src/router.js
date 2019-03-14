@@ -8,6 +8,7 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'home',
+      alias: '/home',
       component: () => import(/* webpackChunkName: "dashboard" */ './views/ItineraryDashboard'),
     },
     {

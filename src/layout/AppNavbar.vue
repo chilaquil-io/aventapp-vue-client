@@ -43,7 +43,7 @@
               </a>
               <hr class="navbar-divider">
               <div class="navbar-item">
-                Logout
+                <logout-button>Logout</logout-button>
               </div>
             </div>
           </div>
@@ -54,9 +54,15 @@
 </template>
 
 <script>
-  export default {
-    name: 'AppNavbar',
-  };
+
+import LogoutButton from '@/components/LogoutButton.vue';
+
+export default {
+  name: 'AppNavbar',
+  components: {
+    'logout-button': LogoutButton,
+  },
+};
 </script>
 
 <style scoped>
