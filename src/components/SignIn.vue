@@ -8,8 +8,8 @@
             <p class="subtitle has-text-grey">Please login to proceed.</p>
             <div class="box columns">
               <div id="google-signin-button column" class="field"></div>
-              <a class="column is-narrow" href="#" v-on:click="fakeSignIn">Fake Sign In</a>
-              <a class="column is-narrow" href="#" v-on:click="signOut">Sign out</a>
+              <a class="button" href="#" v-on:click.prevent="fakeSignIn">Fake Sign In</a>
+              <logout-button class="button">Fake Logout</logout-button>
             </div>
             <p class="has-text-grey"></p>
           </div>
@@ -21,12 +21,16 @@
 
 <script>
 import { mapActions } from 'vuex';
+import LogoutButton from './LogoutButton.vue';
 
 export default {
   name: 'SignIn',
   data: () => ({
 
   }),
+  components: {
+    'logout-button': LogoutButton,
+  },
   mounted() {
     const recaptchaScript = document.createElement('script');
     recaptchaScript.setAttribute('src', 'https://apis.google.com/js/platform.js');
@@ -62,13 +66,6 @@ export default {
         console.log(`Signed in as: ${xhr.responseText}`);
       };
       xhr.send(`token=${token}&uuid=${id}`);
-    },
-    signOut() {
-      this.logout();
-      /*const auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(() => {
-        console.log('User signed out.');
-      });*/
     },
   },
 };

@@ -32,10 +32,10 @@ export default new Vuex.Store({
         localStorage.setItem('user', JSON.stringify(user));
         commit('authenticate', true);
         commit('createUser', user);
-        router.push('/');
+        // router.push('/');
       } catch (e) {
         commit('authenticate', false);
-        dispatch('alert', e.message, { root: true });
+        //dispatch('alert', e.message, { root: true });
       }
     },
     logout({ dispatch, commit }) {
