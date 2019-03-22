@@ -14,6 +14,7 @@ export default new Vuex.Store({
   state: {
     authenticated: false,
     user: null,
+    isModalVisible: false,
   },
   mutations: {
     authenticate(state, payload) {
@@ -23,8 +24,14 @@ export default new Vuex.Store({
     createUser(state, payload) {
       state.user = payload;
     },
+    toggleModal(state, payload) {
+      state.isModalVisible = payload;
+    }
   },
   actions: {
+    toggleModal({ dispatch, commit }, visibility) {
+      commit('toggleModal', visibility);
+    },
     async login({ dispatch, commit }, { username, password }) {
       try {
         const user = await userService.login(username, password);

@@ -9,7 +9,6 @@
         </div>
       </section>
     </div>
-    <app-footer></app-footer>
   </div>
 </template>
 
@@ -18,7 +17,6 @@
 import Searcher from '@/components/Searcher.vue';
 import AventonCard from '@/components/AventonCard.vue';
 import AppNavbar from '@/layout/AppNavbar.vue';
-import AppFooter from '@/layout/AppFooter.vue';
 
 export default {
   name: 'ItineraryDashboard',
@@ -33,7 +31,6 @@ export default {
   },
   components: {
     'app-navbar': AppNavbar,
-    'app-footer': AppFooter,
     'aventon-card': AventonCard,
     Searcher,
   },

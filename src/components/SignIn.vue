@@ -45,6 +45,7 @@ export default {
   methods: {
     ...mapActions(['login', 'logout']),
     fakeSignIn() {
+      this.$store.dispatch('toggleModal', true);
       this.login('email', 'password');
     },
     onSignIn(googleUser) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="modal is-active" v-bind:class="isActive">
+  <div class="modal" v-bind:class="{'is-active': isActive}">
     <div class="modal-background"></div>
     <div class="modal-content">
       <div class="box">
@@ -68,16 +68,17 @@ export default {
   }),
   methods: {
     closeModal() {
-      this.$el.classList.remove('is-active');
+      //this.$el.classList.remove('is-active');
+      this.$store.dispatch('toggleModal', false);
     },
     goTo(path) {
-      this.$el.classList.remove('is-active');
+      this.$store.dispatch('toggleModal', false);
       this.$router.push(path);
     },
   },
   computed: {
     isActive() {
-      return { 'is-active': this.$store.state.authenticated };
+      return this.$store.state.isModalVisible;
     },
   },
 };
